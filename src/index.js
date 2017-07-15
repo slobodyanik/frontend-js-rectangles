@@ -1,24 +1,32 @@
-﻿let rectangleA = {
-	top: (Integer),
-	left: (Integer),
-	width: (Integer),
-	height: (Integer)
+﻿function getRectanglesBottom(rectangle) {
+	return rectangle.top + rectangle.height;
 }
-let rectangleB = {
-	top: (Integer),
-	left: (Integer),
-	width: (Integer),
-	height: (Integer)
+function getRectanglesHeight(rectangle) {
+	return rectangle.left + rectangle.width;
 }
+
 function areIntersected(rectangleA, rectangleB) {
-	if (rectangleA.top + rectangleA.height) <= rectangleB.top ||
-		(rectangleA.left + rectangleA.width) >= rectangleB.left ||
-		rectangleA.top <= (rectangleB.top + rectangleB.height) ||
-		{
-			return true;
-		}
+	if (getRectanglesBottom(rectangleA) > rectangleB.top
+		&& rectangleB.top < getRectanglesBottom(rectangleA)
+		&& getRectanglesHeight(rectangleA) > rectangleB.left
+		&& rectangleA.left < getRectanglesHeight(rectangleB)) {
+
+		return true;
+	}
 	else {
 		return false;
 	}
 }
-function filterVisible(rectangleA, [])
+
+
+
+function filterVisible(rectangleA, array) {
+	return array.filter(function (element) {
+		if (element.width !== 0 && element.height !== 0) {
+			return areIntersected(rectangleA, element);
+		} else {
+			return false;
+		}
+	});
+};
+
